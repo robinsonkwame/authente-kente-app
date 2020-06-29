@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h3> Predict an image </h3>
+  <form action = "/success" method = "post" enctype="multipart/form-data">
+      <input type="file" name="file" />
+      <input type = "submit" value="Upload">
+  </form>
+
+<h3> Train validate and evaluate </h3>
+  <form action = "/train" method="post" enctype="multipart/form-data">
+      <input type="file" name="my_file[]" multiple>
+      <input type="submit" value="Upload">
+  </form>
+
+
+</body>
+</html>

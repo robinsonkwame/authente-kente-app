@@ -1,28 +1,29 @@
-from tensorflow.keras.applications import MobileNetV2
-from keras.applications import imagenet_utils
-from keras.preprocessing.image import img_to_array
-from keras.preprocessing.image import load_img
-from pathlib import Path
-import numpy as np
-import cv2
-import pickle
-import logging
-import os
-import pickle
-import os
-from pickle import load
-
 BATCH_SIZE = 32
 
 def image_pros():
+  from tensorflow.keras.applications import MobileNetV2
+  from keras.applications import imagenet_utils
+  from keras.preprocessing.image import img_to_array
+  from keras.preprocessing.image import load_img
+  from pathlib import Path
+  import numpy as np
+  import cv2
+  import pickle
+  import logging
+  import os
+  import pickle
+  import os
+  from pickle import load
+
 # creating features
   logger = logging.getLogger(__name__)
   mobile_model = MobileNetV2(weights="imagenet", include_top=False, input_shape=(224, 224, 3))
   mobilenet_flattened_size = 7 * 7 * 1280
   #loading images from the folder
   load_files = os.listdir('.')
+  imagePaths = ''
   for file in load_files:
-      if file.endswith('jpg'):
+      if file.endswith('jpg') or file.endswith('png'):
           imagePaths = file
 
   image = load_img(imagePaths, target_size=(224, 224))
@@ -40,7 +41,7 @@ def image_pros():
   data = ss.transform(features)
   reducer = pickle.load( open( "reducer.pkl", "rb" ) )
   data = reducer.transform(data)
-  
+
   # predict
   model = pickle.load( open( "model.pkl", "rb" ) )
   ans = model.predict(data)
